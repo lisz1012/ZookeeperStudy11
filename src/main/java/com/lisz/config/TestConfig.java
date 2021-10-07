@@ -29,6 +29,11 @@ public class TestConfig {
 		// 1. 节点不存在 2。 节点存在
 		while (true) {
 			System.out.println(myConf.getConf());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
