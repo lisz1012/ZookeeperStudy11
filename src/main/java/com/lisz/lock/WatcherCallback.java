@@ -79,7 +79,7 @@ public class WatcherCallback implements Watcher, AsyncCallback.StringCallback, A
 	// getChildren callback
 	@Override
 	public void processResult(int rc, String path, Object ctx, List<String> children, Stat stat) {
-		// 一定能看到自己前面的
+		// 每个节点一定能看到自己前面的
 //		System.out.println(threadName + " look locks: ");
 //		for (String child : children) {
 //			System.out.println(child);
