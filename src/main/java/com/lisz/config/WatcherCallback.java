@@ -30,6 +30,8 @@ public class WatcherCallback implements Watcher, AsyncCallback.StatCallback, Asy
 				break;
 			case NodeDeleted:
 				// 容忍性
+				myConf.setConf("");
+				latch = new CountDownLatch(1);
 				break;
 			case NodeDataChanged:
 				latch = new CountDownLatch(1);
@@ -46,7 +48,7 @@ public class WatcherCallback implements Watcher, AsyncCallback.StatCallback, Asy
 		}
 	}
 
-	//getData是异步的，这是他的callback方法
+	//getData是异步的，这是他的callback方法, 拿到data之后
 	@Override
 	public void processResult(int rc, String path, Object ctx, byte[] data, Stat stat) {
 		if (data != null) {
@@ -64,6 +66,9 @@ public class WatcherCallback implements Watcher, AsyncCallback.StatCallback, Asy
 	}
 
 	public void await() {
+		// exist 和getData有注册的效果
+		// 创建节点的时候，先走到process方法中的 case NodeDeleted
+		// 然后再走到第一个processResult中，然后在countDown，解放下面的这个await
 		zk.exists("/AppConf", this, this, "ABC");
 		try {
 			latch.await();

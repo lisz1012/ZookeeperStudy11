@@ -28,6 +28,10 @@ public class TestConfig {
 		watcherCallback.await();
 		// 1. 节点不存在 2。 节点存在
 		while (true) {
+			if (myConf.getConf().equals("")) {
+				System.out.println("Conf lost...");
+				watcherCallback.await();
+			}
 			System.out.println(myConf.getConf());
 			try {
 				Thread.sleep(1000);
