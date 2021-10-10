@@ -42,7 +42,7 @@ public class WatcherCallback implements Watcher, AsyncCallback.StringCallback, A
 
 	@Override
 	public void process(WatchedEvent event) {
-		// 如果第一个哥们儿，那个锁释放了，则只有第二个收到回调事件
+		// 如果第一个哥们儿，那个锁释放了，则只有第二个收到回调事件，链表一样，一个盯着一个
 		// 如果不是第一个哥们儿，挂了，也能造成他的后面收到这个通知，从而然他后面的哥们儿watch挂掉的这个哥们前面的
 		switch (event.getType()) {
 			case None:
